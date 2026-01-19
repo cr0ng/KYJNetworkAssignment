@@ -36,18 +36,14 @@ void APointActor::BeginPlay()
 
 void APointActor::OnOverlapEvent(AActor* OverlappedActor, AActor* OtherActor)
 {
-	UE_LOG(LogTemp, Log, TEXT("OnOverlapEvent 실행"));
 	if (HasAuthority())
 	{
-	UE_LOG(LogTemp, Log, TEXT("HasAuthority 실행"));
 		ACharacter* Character = Cast<ACharacter>(OtherActor);
 		if (Character)
 		{
-			UE_LOG(LogTemp, Log, TEXT("Character 실행"));
 			ATestPlayerState* PS = Character->GetPlayerState<ATestPlayerState>();
 			if (PS)
 			{
-				UE_LOG(LogTemp, Log, TEXT("PS 실행"));
 				PS->AddScore(Point);
 				Destroy();
 			}
