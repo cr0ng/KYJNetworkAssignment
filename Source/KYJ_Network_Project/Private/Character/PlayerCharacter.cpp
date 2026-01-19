@@ -2,6 +2,7 @@
 
 
 #include "Character/PlayerCharacter.h"
+#include "Framework/TestPlayerState.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -30,5 +31,22 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+void APlayerCharacter::Server_AddScore_Implementation(int32 Point)
+{
+	ATestPlayerState* PS = GetPlayerState<ATestPlayerState>();
+	if (PS)
+	{
+		PS->AddScore(Point);
+	}
+}
+
+void APlayerCharacter::AddScore()
+{
+	if (IsLocallyControlled())
+	{
+		Server_AddScore(1);
+	}
 }
 
