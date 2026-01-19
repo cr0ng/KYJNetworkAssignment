@@ -11,6 +11,7 @@ void ATestPlayerState::AddScore(int32 Point)
 	{
 		MyScore += Point;
 		OnRep_MyScore();
+		UE_LOG(LogTemp, Log, TEXT("점수 : %d"), MyScore);
 	}
 }
 
