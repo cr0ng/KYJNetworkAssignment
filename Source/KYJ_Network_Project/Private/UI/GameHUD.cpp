@@ -2,4 +2,16 @@
 
 
 #include "UI/GameHUD.h"
+#include "Blueprint/UserWidget.h"
 
+void AGameHUD::BeginPlay()
+{
+	if (GameHudWidgetClass)
+	{
+		GameHudWidget = CreateWidget<UUserWidget>(GetWorld(), GameHudWidgetClass);
+		if (GameHudWidget.IsValid())
+		{
+			GameHudWidget->AddToViewport();
+		}
+	}
+}

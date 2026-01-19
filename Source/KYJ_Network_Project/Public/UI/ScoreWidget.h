@@ -15,16 +15,18 @@ UCLASS()
 class KYJ_NETWORK_PROJECT_API UScoreWidget : public UUserWidget
 {
 	GENERATED_BODY()
+protected:
+	virtual void NativeConstruct() override;
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void UpdateScore(class ATestPlayerState* LocalPS, class ATestPlayerState* OtherPS);
-
+	//void UpdateScore(class ATestPlayerState* LocalPS, class ATestPlayerState* OtherPS);
+	void UpdateScore(int32 NewScore);
 
 protected:
 	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UTextBlock> MyScoreText = nullptr;
+	TObjectPtr<UTextBlock> NameText = nullptr;
 
 	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UTextBlock> EnemyScoreText = nullptr;
+	TObjectPtr<UTextBlock> ScoreText = nullptr;
 };
