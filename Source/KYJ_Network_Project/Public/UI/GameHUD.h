@@ -18,7 +18,7 @@ class KYJ_NETWORK_PROJECT_API AGameHUD : public AHUD
 
 public:
 	virtual void BeginPlay() override;
-	inline TWeakObjectPtr<UUserWidget> GetScoreWidget() const { return GameHudWidget; }
+	inline TWeakObjectPtr<UUserWidget> GetGameplayWidget() const { return GameHudWidget; }
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")

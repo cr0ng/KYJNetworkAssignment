@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerState.h"
 #include "TestPlayerState.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnMyScoreChanged, int32);
+
 /**
  * 
  */
@@ -21,6 +23,11 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Score")
 	int32 GetMyScore() const { return MyScore; }
 
+	FOnMyScoreChanged OnMyScoreChanged;
+
+	UPROPERTY(ReplicatedUsing = OnRep_MyScore, BlueprintReadOnly, Category = "Data")
+	int32 MyScore = 0;
+
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
@@ -28,8 +35,7 @@ protected:
 	void OnRep_MyScore();
 
 protected:
-	UPROPERTY(ReplicatedUsing = OnRep_MyScore, BlueprintReadOnly, Category = "Data")
-	int32 MyScore = 0;
 
-	TWeakObjectPtr<class UScoreWidget> ScoreHud = nullptr;
+
+	TWeakObjectPtr<class UGamePlayWidget> ScoreHud = nullptr;
 };

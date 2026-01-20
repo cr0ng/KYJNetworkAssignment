@@ -19,9 +19,14 @@ protected:
 	virtual void NativeConstruct() override;
 
 public:
-	UFUNCTION(BlueprintCallable)
 	//void UpdateScore(class ATestPlayerState* LocalPS, class ATestPlayerState* OtherPS);
-	void UpdateScore(int32 NewScore);
+	//void UpdateScore(int32 NewScore);
+	
+	UFUNCTION(BlueprintCallable)
+	void UpdateName(FText InName);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateIntValue(int32 InValue);
 
 protected:
 	UPROPERTY(meta = (BindWidget))

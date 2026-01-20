@@ -6,15 +6,35 @@
 #include "Character/PlayerCharacter.h"
 #include "UI/GameHUD.h"
 #include "UI/ScoreWidget.h"
+#include "UI/GamePlayWidget.h"
+#include "Framework/TestGameStateBase.h"
 
 void ATestPlayerState::AddScore(int32 Point)
 {
-	if (HasAuthority())
+	/*if (HasAuthority())
 	{
 		MyScore += Point;
 		OnRep_MyScore();
 		UE_LOG(LogTemp, Log, TEXT("점수 : %d"), MyScore);
-	}
+	}*/
+
+    if (HasAuthority())
+    {
+        MyScore += Point;
+        OnRep_MyScore();
+
+        // 서버에서 모든 PlayerState 확인
+        if (AGameStateBase* GS = GetWorld()->GetGameState())
+        {
+            for (APlayerState* PS : GS->PlayerArray)
+            {
+                if (ATestPlayerState* TPS = Cast<ATestPlayerState>(PS))
+                {
+                    UE_LOG(LogTemp, Log, TEXT("%s의 점수 : %d"), *TPS->GetPlayerName(), TPS->MyScore);
+                }
+            }
+        }
+    }
 }
 
 void ATestPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -26,47 +46,24 @@ void ATestPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 
 void ATestPlayerState::OnRep_MyScore()
 {
- /*   APlayerController* PC = GetWorld()->GetFirstPlayerController();
-    if (!PC) return;
+	//UE_LOG(LogTemp, Log, TEXT("[%d]Score : %d"), GetPlayerId(), MyScore);
+	/*OnMyScoreChanged.Broadcast(MyScore);*/
 
-    AGameHUD* HUD = PC->GetHUD<AGameHUD>();
-    if (!HUD) return;*/
-
-    // 이 PlayerState가 로컬 플레이어 것인가?
-    //if (PC->PlayerState == this)
-    //{
-    //    // 내 점수
-    //    if (HUD->MyScoreText)
-    //    {
-    //        HUD->MyScoreText->UpdateScore(MyScore);
-    //    }
-    //}
-    //else
-    //{
-    //    // 상대 점수
-    //    if (HUD->EnemyScoreText)
-    //    {
-    //        HUD->EnemyScoreText->UpdateScore(MyScore);
-    //    }
-    //}
-
-	UE_LOG(LogTemp, Log, TEXT("[%d]Score : %d"), GetPlayerId(), MyScore);
 	if (!ScoreHud.IsValid())
 	{
 		if (GetPlayerController())
 		{
-			UE_LOG(LogTemp, Log, TEXT("플레이어 컨트롤러 있음"));
+			//UE_LOG(LogTemp, Log, TEXT("플레이어 컨트롤러 있음"));
 			AGameHUD* HUD = GetPlayerController()->GetHUD<AGameHUD>();
-			if (HUD && HUD->GetScoreWidget().IsValid())
+			if (HUD && HUD->GetGameplayWidget().IsValid())
 			{
-				UE_LOG(LogTemp, Log, TEXT("HUD와 HUD위젯도 있음"));
-				ScoreHud = Cast<UScoreWidget>(HUD->GetScoreWidget().Get());
+				//UE_LOG(LogTemp, Log, TEXT("HUD와 HUD위젯도 있음"));
+				ScoreHud = Cast<UGamePlayWidget>(HUD->GetGameplayWidget().Get());
 			}
 		}
 	}
 	if (ScoreHud.IsValid())
 	{
-		UE_LOG(LogTemp, Log, TEXT("ScoreHud 있음"));
 		ScoreHud->UpdateScore(MyScore);
 	}
 }

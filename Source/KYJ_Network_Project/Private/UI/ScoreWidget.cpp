@@ -10,10 +10,20 @@ void UScoreWidget::NativeConstruct()
     Super::NativeConstruct();
 }
 
-void UScoreWidget::UpdateScore(int32 NewScore)
+void UScoreWidget::UpdateName(FText InName)
 {
-    ScoreText->SetText(FText::AsNumber(NewScore));
+    NameText->SetText(InName);
 }
+
+void UScoreWidget::UpdateIntValue(int32 InValue)
+{
+    ScoreText->SetText(FText::AsNumber(InValue));
+}
+
+//void UScoreWidget::UpdateScore(int32 NewScore)
+//{
+//    ScoreText->SetText(FText::AsNumber(NewScore));
+//}
 
 //void UScoreWidget::UpdateScore(ATestPlayerState* LocalPS, ATestPlayerState* OtherPS)
 //{

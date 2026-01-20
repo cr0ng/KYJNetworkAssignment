@@ -46,7 +46,7 @@ void APlayerCharacter::AddScore()
 {
 	if (IsLocallyControlled())
 	{
-		Server_AddScore(1);
+		Server_AddScore(10);
 	}
 }
 
