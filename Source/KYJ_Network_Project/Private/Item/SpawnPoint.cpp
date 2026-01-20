@@ -41,7 +41,7 @@ void ASpawnPoint::SpawnActor()
         BoxExtent
     );
 
-    GEngine->AddOnScreenDebugMessage( -1,2.f,FColor::Green, TEXT("스폰 액터 생성됨") );
+    //GEngine->AddOnScreenDebugMessage( -1,2.f,FColor::Green, TEXT("스폰 액터 생성됨") );
 
     GetWorld()->SpawnActor<AActor>(
         SpawnActors,

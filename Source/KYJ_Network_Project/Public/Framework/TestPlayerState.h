@@ -28,6 +28,7 @@ public:
 	UPROPERTY(ReplicatedUsing = OnRep_MyScore, BlueprintReadOnly, Category = "Data")
 	int32 MyScore = 0;
 
+
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
@@ -35,7 +36,5 @@ protected:
 	void OnRep_MyScore();
 
 protected:
-
-
 	TWeakObjectPtr<class UGamePlayWidget> ScoreHud = nullptr;
 };

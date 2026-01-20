@@ -46,24 +46,37 @@ void ATestPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 
 void ATestPlayerState::OnRep_MyScore()
 {
-	//UE_LOG(LogTemp, Log, TEXT("[%d]Score : %d"), GetPlayerId(), MyScore);
-	/*OnMyScoreChanged.Broadcast(MyScore);*/
 
-	if (!ScoreHud.IsValid())
+	//if (!ScoreHud.IsValid())
+	//{
+	//	if (GetPlayerController())
+	//	{
+	//		//UE_LOG(LogTemp, Log, TEXT("플레이어 컨트롤러 있음"));
+	//		AGameHUD* HUD = GetPlayerController()->GetHUD<AGameHUD>();
+	//		if (HUD && HUD->GetGameplayWidget().IsValid())
+	//		{
+	//			//UE_LOG(LogTemp, Log, TEXT("HUD와 HUD위젯도 있음"));
+	//			ScoreHud = Cast<UGamePlayWidget>(HUD->GetGameplayWidget().Get());
+	//		}
+	//	}
+	//}
+	//if (ScoreHud.IsValid())
+	//{
+	//	ScoreHud->UpdateScore(MyScore);
+	//}
+
+	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
 	{
-		if (GetPlayerController())
+		if (AGameHUD* HUD = PC->GetHUD<AGameHUD>())
 		{
-			//UE_LOG(LogTemp, Log, TEXT("플레이어 컨트롤러 있음"));
-			AGameHUD* HUD = GetPlayerController()->GetHUD<AGameHUD>();
-			if (HUD && HUD->GetGameplayWidget().IsValid())
+			if (HUD->GetGameplayWidget().IsValid())
 			{
-				//UE_LOG(LogTemp, Log, TEXT("HUD와 HUD위젯도 있음"));
-				ScoreHud = Cast<UGamePlayWidget>(HUD->GetGameplayWidget().Get());
+				if (UGamePlayWidget* GPW =
+					Cast<UGamePlayWidget>(HUD->GetGameplayWidget().Get()))
+				{
+					GPW->RefreshScores();
+				}
 			}
 		}
-	}
-	if (ScoreHud.IsValid())
-	{
-		ScoreHud->UpdateScore(MyScore);
 	}
 }

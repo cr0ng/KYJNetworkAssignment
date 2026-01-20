@@ -18,7 +18,7 @@ class KYJ_NETWORK_PROJECT_API UGamePlayWidget : public UUserWidget
 	
 public:
 	void UpdateScore(int32 NewScore);
-	void UpdateScoreHUD();
+	void UpdateEnemyScore(int32 NewScore);
 
 protected:
 	virtual void NativeConstruct() override;
@@ -30,8 +30,8 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Game Data")
 	void UpdateGameOverDisplay();
 
-	UFUNCTION(BlueprintCallable, Category = "Game Data")
-	void OnScoreChanged(int32 MyScore, int32 OtherScore);
+public:
+	void RefreshScores();
 
 protected:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta = (BindWidget))
