@@ -13,7 +13,7 @@ public class KYJ_Network_Project : ModuleRules
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {
-         "Slate", "SlateCore" 
+         "Slate", "SlateCore", "GameplayAbilities", "GameplayTags", "GameplayTasks" 
 		});
 
 		// Uncomment if you are using Slate UI

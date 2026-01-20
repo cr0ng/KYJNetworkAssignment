@@ -26,6 +26,6 @@ protected:
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Score")
-	void AddPointScore();
+	void AddScore();
 
 };

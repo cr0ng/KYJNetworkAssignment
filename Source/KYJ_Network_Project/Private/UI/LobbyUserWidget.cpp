@@ -24,6 +24,7 @@ void ULobbyUserWidget::NativeConstruct()
 
 void ULobbyUserWidget::OnCreateButtonClicked()
 {
+	UE_LOG(LogTemp, Log, TEXT("서버 생성 버튼 클릭"));
 	UMainGameInstance* GI = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GI)
 	{
@@ -33,6 +34,7 @@ void ULobbyUserWidget::OnCreateButtonClicked()
 
 void ULobbyUserWidget::OnJoinButtonClicked()
 {
+	UE_LOG(LogTemp, Log, TEXT("서버 참여 버튼 클릭"));
 	UMainGameInstance* GI = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GI)
 	{
